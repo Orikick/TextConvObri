@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Текстовий Конвертер</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        textarea {
+            width: 80%;
+            height: 100px;
+            margin: 10px;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #conversionType {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        #conversionType div {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        #conversionType div:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="optionsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeOptionsModal()">&times;</span>
+            <h2>Вибрати опцію</h2>
+            <div id="conversionType">
+                <div onclick="selectOption('default')">Default</div>
+                <div onclick="selectOption('morse')">Азбука Морзе</div>
+                <div onclick="selectOption('transliterate')">Транслітерація</div>
+                <div onclick="selectOption('nato')">Шифр НАТО</div>
+                <div onclick="selectOption('transiso')">ISO</div>
+                <div onclick="selectOption('clearhtml')">Очищення від Html</div>
+                <div onclick="selectOption('transpolish')">Транслітерація з польської</div>
+            </div>
+        </div>
+    </div>
+    <h1>Текстовий Конвертер</h1>
+
+    <textarea id="inputText" placeholder="Введіть текст"></textarea><br>
+    <div style="display: flex; justify-content: center; width: 100%;"><button onclick="clearTextarea()">Очистити поле</button>
+    <button onclick="openOptionsModal()">Вибрати опцію</button></div>
+    
+    <textarea id="outputText" placeholder="Результат" readonly></textarea><br>
+    <div style="display: flex; justify-content: center; width: 100%;">
+        <button onclick="ToUpperCase()">В ВЕЛИКУ БУКВУ</button>
+        <button onclick="ToLowerCase()">в маленьку</button>
+        <button onclick="ToUpperLowerCase()">ЧеРеЗ ОдНу</button>
+        <button onclick="toCapitalizeFirstLetter()">Кожна Перша БуквА В Верхньому Регістрі</button>
+        <button onclick="toCapitalizeFirstLetterOfSentence()">Перша буква речення в верхньому регістрі</button>
+        <button onclick="copyOutput()">Копіювати результат</button>
+    </div>
+
+    <div id="counters">
+        <span>Букви: <span id="letterCount">0</span></span>
+        <span>Букви(не враховуючи пробіли): <span id="letterCountWithoutSpaces">0</span></span>
+        <span>Слова: <span id="wordCount">0</span></span>
+        <span>Рядки: <span id="lineCount">0</span></span>
+        <span>Спецсимволи: <span id="digitAndSymbolCount">0</span></span>
+        <span>Букви без Спецсимволів: <span id="letterCountWithoutSpecial">0</span></span>
+    </div>
+
+
+    <script src="./index.js"></script>
+</body>
+
+</html>
