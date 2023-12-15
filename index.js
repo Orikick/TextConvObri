@@ -1,4 +1,4 @@
-
+//Функція очищення полів
 function clearTextarea() {
     // Знаходимо елемент textarea за його id
     var inputText = document.getElementById("inputText");
@@ -8,13 +8,6 @@ function clearTextarea() {
     outputText.value = '';
 }
 
-function openOptionsModal() {
-    document.getElementById('optionsModal').style.display = 'block';
-}
-
-function closeOptionsModal() {
-    document.getElementById('optionsModal').style.display = 'none';
-}
 
 function selectOption(option) {
     document.getElementById('conversionType').value = option;
@@ -22,14 +15,17 @@ function selectOption(option) {
 }
 
 
-
+//Необхідні зміннні
 const inputText = document.getElementById('inputText');
 const outputText = document.getElementById('outputText');
 const letterCount = document.getElementById('letterCount');
 const letterCountWithoutSpaces = document.getElementById('letterCountWithoutSpaces');
 const wordCount = document.getElementById('wordCount');
 const lineCount = document.getElementById('lineCount');
-const digitAndSymbolCount = document.getElementById('digitAndSymbolCount');
+const digitAndSymbolCount = document.getElementById('digitAndSymbolCount'); 
+
+
+//Функція для автоматичного виведення результату в поле виводу 
 document.addEventListener('DOMContentLoaded', function () {
     // Отримайте елементи textarea та inputText
     const inputText = document.getElementById('inputText');
@@ -43,6 +39,8 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 inputText.addEventListener('input', updateCounters);
 
+
+//Функція для оновлення лічильників 
 function updateCounters() {
     const text = inputText.value;
     letterCount.textContent = text.length;
@@ -54,14 +52,18 @@ function updateCounters() {
 }
 
 
+//Функція підрахунку кількості букв без спецсимволів 
 function countLettersWithoutSpecial(text) {
     // Use a regular expression to match only letters (excluding special characters)
     const lettersWithoutSpecialRegex = /[a-zA-Z]/g;
     const matches = text.match(lettersWithoutSpecialRegex);
     return matches ? matches.length : 0;
 }
+
+
+//Функція підрахунку кількості спецсимволів 
 function countLatinDigitsAndSymbols(text) {
-    // Use a regular expression to match Latin letters, digits, and special characters
+
     const latinDigitsAndSymbolsRegex = /[0-9!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/g;
     const matches = text.match(latinDigitsAndSymbolsRegex);
     return matches ? matches.length : 0;
@@ -69,7 +71,7 @@ function countLatinDigitsAndSymbols(text) {
 
 
 
-
+//Функції звязування кнопок з відповідними ім функціями
 function convert() {
     const conversionType = document.getElementById('conversionType').value;
     const inputText = document.getElementById('inputText').value;
@@ -112,6 +114,8 @@ function convert() {
     }
 }
 
+
+//Функція копіювання тексту з поля виводу 
 function copyOutput() {
     const outputText = document.getElementById('outputText');
     outputText.select();
@@ -120,7 +124,7 @@ function copyOutput() {
 }
 
 
-
+//Функції виводу результатів в відповідне поле виводу
 function convertToMorseCode() {
     const inputText = document.getElementById('inputText').value.toUpperCase();
     const morseCode = textToMorse(inputText);
@@ -133,9 +137,9 @@ function transliterate() {
     document.getElementById('outputText').value = transliteratedText;
 }
 function toTransliterateISO() {
-const inputText = document.getElementById('inputText').value;
-const transliteratedText = transliterateISO(inputText);
-document.getElementById('outputText').value = transliteratedText;
+    const inputText = document.getElementById('inputText').value;
+    const transliteratedText = transliterateISO(inputText);
+    document.getElementById('outputText').value = transliteratedText;
 }
 function transliterateGerman() {
     const inputText = document.getElementById('inputText').value;
@@ -154,7 +158,6 @@ function encodeNato() {
     const natoCode = textToNato(inputText);
     document.getElementById('outputText').value = natoCode;
 }
-
 
 function ToUpperCase() {
     const outputText = document.getElementById('outputText').value;
@@ -177,46 +180,43 @@ function ToUpperLowerCase() {
     const outputText = document.getElementById('outputText').value;
     document.getElementById('outputText').value = convertUpperLowerCase(outputText);
 }
+////////////////////////////////////////////////////////////////
+
+
+//Функція зміни регістру кожної першої букви в слові
 function capitalizeFirstLetter(text) {
-return text.replace(/(?:^|\s)\S/g, function (a) {
-return a.toUpperCase();
-});
+    return text.replace(/(?:^|\s)\S/g, function (a) {
+        return a.toUpperCase();
+    });
 }
 
+//Функція зміни регістру кожної першої букви в речені
 function capitalizeFirstLetterOfSentence(text) {
-if (text.length === 0) {
-return "";
+    if (text.length === 0) {
+        return "";
+    }
+    var sentences = text.split('. ');
+    for (var i = 0; i < sentences.length; i++) {
+        sentences[i] = sentences[i].charAt(0).toUpperCase() + sentences[i].slice(1);
+    }
+    return sentences.join('. ');
 }
 
-// Capitalize the first letter and concatenate the rest of the sentence
 
-var sentences = text.split('. ');
 
-// Пройти через кожен розділений рядок та змінити першу букву на велику
-for (var i = 0; i < sentences.length; i++) {
-sentences[i] = sentences[i].charAt(0).toUpperCase() + sentences[i].slice(1);
-}
-
-// З'єднати рядки назад разом і повернути результат
-return sentences.join('. ');
-}
-
-function ToclearHtmlTags() {
-    const inputText = document.getElementById('inputText').value.toUpperCase();
-    const clearHtml = clearHtmlTags(inputText);
-    document.getElementById('outputText').value = clearHtml;
-}
-
-function clearHtmlTags(text) {
-    return text.replace(/<[^>]+>/g, '');
-}
+//Функція зміни регістру в великий
 function convertUpperCase(text) {
     return text.toUpperCase();
 }
+
+
+//Функція зміни регістру в малий
 function convertLowerCase(text) {
     return text.toLowerCase();
 }
 
+
+//Функція зміни регістру в Alternating Case
 function convertUpperLowerCase(text) {
     var result = "";
 
@@ -230,6 +230,20 @@ function convertUpperLowerCase(text) {
 
     return result;
 }
+
+
+//Функція очистки HTML коду 
+function ToclearHtmlTags() {
+    const inputText = document.getElementById('inputText').value.toUpperCase();
+    const clearHtml = clearHtmlTags(inputText);
+    document.getElementById('outputText').value = clearHtml;
+}
+function clearHtmlTags(text) {
+    return text.replace(/<[^>]+>/g, '');
+}
+
+
+// Функція Морзе
 function textToMorse(text) {
     const morseCodeMap = {
         'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'J': '.---',
@@ -258,6 +272,7 @@ function textToMorse(text) {
 }
 
 
+// Функція для транслітерації з української в англійську
 function transliterateText(text) {
     const transliterationMap = {
         'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'ґ': 'g', 'д': 'd', 'е': 'e', 'є': 'ie', 'ж': 'zh', 'з': 'z',
@@ -281,14 +296,11 @@ function transliterateText(text) {
         if (char === 'ь') {
             continue;
         }
-        // Check for "зг" and transliterate accordingly
         if (i < text.length - 1 && char === 'з' && text[i + 1] === 'г') {
             transliteratedText += transliterationMap['зг'];
-            i++; // Skip the next character ('г')
+            i++;
         } else if (transliterationMap[char]) {
-            // Check if it's the first letter of a word
             if (capitalizeNext) {
-                // Apply the specific rule for the first letter
                 switch (char) {
                     case 'я':
                         transliteratedText += 'ya';
@@ -306,100 +318,101 @@ function transliterateText(text) {
                         transliteratedText += 'yu';
                         break;
                     default:
-                        // Use the general transliteration rule
                         transliteratedText += transliterationMap[char];
                         break;
                 }
                 capitalizeNext = false;
             } else {
-                // Use the general transliteration rule
                 transliteratedText += transliterationMap[char];
             }
         } else {
-            // Keep characters that do not undergo transliteration unchanged
             transliteratedText += char;
-            // Set the flag to capitalize the next letter if the current character is a space
             capitalizeNext = char === ' ';
         }
     }
 
     return transliteratedText;
 }
+
+
+// Функція для транслітерації
 function transliterateISO(text) {
-const transliterationMap = {
-'А': 'A', 'а': 'a',
-'Б': 'B', 'б': 'b',
-'В': 'V', 'в': 'v',
-'Г': 'G', 'г': 'g',
-'Ѓ': 'Ǵ', 'ѓ': 'ǵ',
-'Ґ': 'G̀', 'ґ': 'g̀',
-'Д': 'D', 'д': 'd',
-'Е': 'E', 'е': 'e',
-'Ё': 'IO', 'ё': 'io',
-'Є': 'Ê', 'є': 'ê',
-'Ж': 'Ž', 'ж': 'ž',
-'З': 'Z', 'з': 'z',
-'Ѕ': 'Ẑ', 'ѕ': 'ẑ',
-'И': 'I', 'и': 'i',
-'Й': 'J', 'й': 'j',
-'Ј': 'J̌', 'ј': 'ǰ',
-'І': 'Ì', 'і': 'ì',
-'Ї': 'Ï', 'ї': 'ï',
-'К': 'K', 'к': 'k',
-'Ќ': 'Ḱ', 'ќ': 'ḱ',
-'Л': 'L', 'л': 'l',
-'Љ': 'L̂', 'љ': 'l̂',
-'М': 'M', 'м': 'm',
-'Н': 'N', 'н': 'n',
-'Њ': 'N̂', 'њ': 'n̂',
-'О': 'O', 'о': 'o',
-'П': 'P', 'п': 'p',
-'Р': 'R', 'р': 'r',
-'С': 'S', 'с': 's',
-'Т': 'T', 'т': 't',
-'У': 'U', 'у': 'u',
-'Ў': 'Ǔ', 'ў': 'ǔ',
-'Ф': 'F', 'ф': 'f',
-'Х': 'H', 'х': 'h',
-'Ц': 'C', 'ц': 'c',
-'Ч': 'Č', 'ч': 'č',
-'Џ': 'D̂', 'џ': 'd̂',
-'Ш': 'Š', 'ш': 'š',
-'Щ': 'Ŝ', 'щ': 'ŝ',
-'Ъ': 'ʺ', 'ъ': 'ʺ',
-'Ы': 'Y', 'ы': 'y',
-'Ь': 'ʹ', 'ь': 'ʹ',
-'Э': 'È', 'э': 'è',
-'Ю': 'Û', 'ю': 'û',
-'Я': 'Â', 'я': 'â',
-'ʼ': 'ʼ',
-'Ѣ': 'Ě', 'ѣ': 'ě',
-'Ѫ': 'Ǎ', 'ѫ': 'ǎ',
-'Ѳ': 'F̀', 'ѳ': 'f̀',
-'Ѵ': 'Ỳ', 'ѵ': 'ỳ'
-};
+    const transliterationMap = {
+        'А': 'A', 'а': 'a',
+        'Б': 'B', 'б': 'b',
+        'В': 'V', 'в': 'v',
+        'Г': 'G', 'г': 'g',
+        'Ѓ': 'Ǵ', 'ѓ': 'ǵ',
+        'Ґ': 'G̀', 'ґ': 'g̀',
+        'Д': 'D', 'д': 'd',
+        'Е': 'E', 'е': 'e',
+        'Ё': 'IO', 'ё': 'io',
+        'Є': 'Ê', 'є': 'ê',
+        'Ж': 'Ž', 'ж': 'ž',
+        'З': 'Z', 'з': 'z',
+        'Ѕ': 'Ẑ', 'ѕ': 'ẑ',
+        'И': 'I', 'и': 'i',
+        'Й': 'J', 'й': 'j',
+        'Ј': 'J̌', 'ј': 'ǰ',
+        'І': 'Ì', 'і': 'ì',
+        'Ї': 'Ï', 'ї': 'ï',
+        'К': 'K', 'к': 'k',
+        'Ќ': 'Ḱ', 'ќ': 'ḱ',
+        'Л': 'L', 'л': 'l',
+        'Љ': 'L̂', 'љ': 'l̂',
+        'М': 'M', 'м': 'm',
+        'Н': 'N', 'н': 'n',
+        'Њ': 'N̂', 'њ': 'n̂',
+        'О': 'O', 'о': 'o',
+        'П': 'P', 'п': 'p',
+        'Р': 'R', 'р': 'r',
+        'С': 'S', 'с': 's',
+        'Т': 'T', 'т': 't',
+        'У': 'U', 'у': 'u',
+        'Ў': 'Ǔ', 'ў': 'ǔ',
+        'Ф': 'F', 'ф': 'f',
+        'Х': 'H', 'х': 'h',
+        'Ц': 'C', 'ц': 'c',
+        'Ч': 'Č', 'ч': 'č',
+        'Џ': 'D̂', 'џ': 'd̂',
+        'Ш': 'Š', 'ш': 'š',
+        'Щ': 'Ŝ', 'щ': 'ŝ',
+        'Ъ': 'ʺ', 'ъ': 'ʺ',
+        'Ы': 'Y', 'ы': 'y',
+        'Ь': 'ʹ', 'ь': 'ʹ',
+        'Э': 'È', 'э': 'è',
+        'Ю': 'Û', 'ю': 'û',
+        'Я': 'Â', 'я': 'â',
+        'ʼ': 'ʼ',
+        'Ѣ': 'Ě', 'ѣ': 'ě',
+        'Ѫ': 'Ǎ', 'ѫ': 'ǎ',
+        'Ѳ': 'F̀', 'ѳ': 'f̀',
+        'Ѵ': 'Ỳ', 'ѵ': 'ỳ'
+    };
 
-let result = '';
-let i = 0;
+    let result = '';
+    let i = 0;
 
-while (i < text.length) {
-let currentChar = text[i];
-let nextChar = text.slice(i, i + 2);
+    while (i < text.length) {
+        let currentChar = text[i];
+        let nextChar = text.slice(i, i + 2);
 
-if (transliterationMap[nextChar]) {
-    result += transliterationMap[nextChar];
-    i += 2;
-} else if (transliterationMap[currentChar]) {
-    result += transliterationMap[currentChar];
-    i += 1;
-} else {
-    result += currentChar;
-    i += 1;
+        if (transliterationMap[nextChar]) {
+            result += transliterationMap[nextChar];
+            i += 2;
+        } else if (transliterationMap[currentChar]) {
+            result += transliterationMap[currentChar];
+            i += 1;
+        } else {
+            result += currentChar;
+            i += 1;
+        }
+    }
+
+    return result;
 }
-}
 
-return result;
-}
+
 // Функція для транслітерації польського тексту в уу
 function transliteratePolishToUkrainian(text) {
     const transliterationMap = {
